@@ -428,6 +428,22 @@ void System::SaveKeyFrameTrajectoryTUM(const string &filename)
     cout << endl << "trajectory saved!" << endl;
 }
 
+void saveMap(ORB_SLAM2::System SLAM&){
+    std::vector<ORB_SLAM2::MapPoint*> mapPoints = SLAM.GetMap()->GetAllMapPoints();
+    std::ofstream pointData;
+    pointData.open("/tmp/pointData.csv");
+    for(auto p : mapPoints) {
+        if (p != NULL)
+        {
+            auto point = p->GetWorldPos();
+            Eigen::Matrix<double, 3, 1> v = ORB_SLAM2::Converter::toVector3d(point);
+            pointData << v.x() << "," << v.y() << "," << v.z()<<  std::endl;
+        }
+    }
+    pointData.close();
+}  
+  
+  
 void System::SaveTrajectoryKITTI(const string &filename)
 {
     cout << endl << "Saving camera trajectory to " << filename << " ..." << endl;

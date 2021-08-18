@@ -1,5 +1,5 @@
 # About This Fork
-- I downgraded to Windfinch's modifications to Opencv3
+- I downgraded to Windfisch's modifications to Opencv3
 - Added getMap function to system.h and saveMap to system.cc
 ---
 # ORB-SLAM2

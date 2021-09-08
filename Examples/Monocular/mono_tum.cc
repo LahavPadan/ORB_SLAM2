@@ -33,7 +33,7 @@
 #define BUFFER_SIZE 5
 
 
-void saveMap(ORB_SLAM2::System& SLAM);
+void saveMap(ORB_SLAM2::System* SLAM);
 void init_vars();
 //void pose_data_generator();
 
@@ -49,7 +49,7 @@ typedef struct threads{
 // start numbering at 1 instead of 0
 typedef enum {
 	END = 1,
-	saveMap
+	SAVEMAP
 
 } protocol_messages_t;
 
@@ -108,7 +108,7 @@ void socket_listener()
         	protocol_messages_t val = static_cast<protocol_messages_t>(pointer->value);
         	switch (val){
         		case END: continue_slam = false; sem_post(&empty); break;
-    			case SaveMap: saveMap(pSLAM); break;
+    			case SAVEMAP: saveMap(pSLAM); break;
     			default: std::cout << "Unknown message recived" << std::endl;
         	}
         }

@@ -117,6 +117,7 @@ public:
     Map *GetMap() { return mpMap; };
     // LoadMap(const string &filename);
     
+    ORB_SLAM2::Tracking* GetTracker() { return mpTracker; };
     // Information from most recent processed frame
     // You can call this right after TrackMonocular (or stereo or RGBD)
     int GetTrackingState();

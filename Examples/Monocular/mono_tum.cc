@@ -192,11 +192,10 @@ void frames_generator()
 			pthread_mutex_lock(&mutex2);
 	        produce_time= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
 	        pthread_mutex_unlock(&mutex2);
-	        std::cout << "counter is "<< counter << std::endl;
 			pthread_mutex_unlock(&mutex1);
 			sem_post(&full);
 			counter++;
-			std::cout << "counter is " << counter << std::endl; 
+			//std::cout << "counter is " << counter << std::endl; 
 			if (counter > 50)
 			{
 				sleep(consume_time * 0.95);
@@ -269,7 +268,7 @@ int main()
 			std::cout << "isSlamInitialized" << true << std::endl; 
 	        if (!tcw.empty())
 	        {
-	        	std::cout << "Pose" << tcw(cv::Range(0,3), cv::Range(3, 4)).t() << std::endl; 
+	        	std::cout << "listPose" << tcw(cv::Range(0,3), cv::Range(3, 4)).t() << std::endl; 
 	        }
 
 
@@ -280,8 +279,10 @@ int main()
 	        }
 	        catch (cv::Exception e){}
 			*/
-	        std::cout << "IsWall" << (int)(ptracker->mLastProcessedState == ORB_SLAM2::Tracking::LOST) << std::endl;
-    	}
+	        std::cout << "isWall" << (int)(ptracker->mLastProcessedState == ORB_SLAM2::Tracking::LOST) << std::endl;
+		    std::cout << "isTrackingLost" << (int)(ptracker->mLastProcessedState == ORB_SLAM2::Tracking::LOST) << std::endl;
+		    
+		}
     	else{
     		std::cout << "isSlamInitialized" << false << std::endl; 
     	}
@@ -293,13 +294,14 @@ int main()
         std::chrono::monotonic_clock::time_point t2 = std::chrono::monotonic_clock::now();
 #endif
         //usleep(0.1);
+        /*
         pthread_mutex_lock(&mutex2);
         consume_time= std::chrono::duration_cast<std::chrono::duration<double> >(t2 - t1).count();
         std::cout << "(producer) produce_time= " << produce_time << std::endl <<
         "(consumer) consume_time= " << consume_time << std::endl << std::endl;
         pthread_mutex_unlock(&mutex2);
         counter++;
- 		
+ 		*/
         /*
 		// Wait to load the next frame
 		double T = (0.4) * (counter + 2) - time_stamp;
